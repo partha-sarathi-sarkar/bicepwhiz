@@ -1,1 +1,13 @@
 site_name: My Docs
+theme:
+  name: material
+nav:
+  - Home: index.md
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+
+plugins:
+  - include-markdown

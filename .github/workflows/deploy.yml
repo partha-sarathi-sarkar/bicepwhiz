@@ -1,30 +1,28 @@
-name: Deploy Docusaurus to GitHub Pages
-
+name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to the 'main' branch
-
+      - main  # Adjust if your default branch is named differently
+permissions:
+  contents: write
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the code
+      - name: Check out the repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 18
+          python-version: '3.x'
 
-      - name: Install dependencies
-        run: npm i
-
-      - name: Build the website
-        run: npm run build
+      - name: Install MkDocs and Material theme
+        run: |
+          pip install mkdocs mkdocs-material
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.TOKEN }}
-          publish_dir: ./build
+        run: |
+          mkdocs gh-deploy --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}

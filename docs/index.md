@@ -1,6 +1,4 @@
-                <!-- #Bicep Tutorial
-
-## Table of Contents
+<!-- ## Table of Contents
 
 | Section | Description |
 |---------|-------------|
@@ -13,7 +11,10 @@
 | [Azure Bicep vs. ARM Templates](#azure-bicep-vs-arm-templates) | Comparison of Bicep and ARM templates |
 | [Installing Azure CLI](#installing-azure-cli) | Steps to install Azure CLI for Bicep deployment |
 | [Common Structure of an Azure Bicep File](#common-structure-of-an-azure-bicep-file) | Example of an Azure Storage Account deployment |
-| [Bicep Deployment](#bicep-deployment) | Converting Bicep to JSON using Azure CLI |
+| [Bicep Deployment](#bicep-deployment) | Converting Bicep to JSON using Azure CLI | -->
+
+{% include-markdown "toc.md" %}
+
 
 # Introduction to Infrastructure as Code (IaC)
 
@@ -93,7 +94,7 @@ az bicep build --file .\001\001_stg.bicep
 ```
 Screenshot:
 The screenshot shows the JSON output generated from the Bicep file, confirming that the conversion process has executed successfully.
-![image](/attachments/001_Stg_json_ss.png)
+![Alt Text](./img/001_Stg_json_ss.png)
 
 
- -->
+
