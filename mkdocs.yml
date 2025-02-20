@@ -1,0 +1,6 @@
+site_name: BicepWhiz Documentation
+theme:
+  name: material
+nav:
+  - Home: index.md
+  # Add other pages as needed

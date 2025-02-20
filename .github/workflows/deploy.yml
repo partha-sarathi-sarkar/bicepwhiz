@@ -1,0 +1,32 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change this if your default branch is not 'main'
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install MkDocs and Material theme
+        run: |
+          pip install mkdocs mkdocs-material
+
+      - name: Build the site
+        run: |
+          mkdocs build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./site
