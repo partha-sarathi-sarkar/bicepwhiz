@@ -1,1 +1,7 @@
-site_name: My Docs
+site_name: BicepWhiz Documentation
+site_url: https://partha-sarathi-sarkar.github.io/bicepwhiz/
+repo_url: https://github.com/partha-sarathi-sarkar/bicepwhiz
+nav:
+  - Home: index.md
+theme:
+  name: mkdocs
