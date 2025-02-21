@@ -25,6 +25,9 @@ az group create --name rgAppNameDev --location centralindia
 az deployment group create --resource-group <resource-group-name> --template-file <path-to-bicep>
 '
 
+# Preview Changes before Deployment
+az deployment group create --resource-group rgAppNameDev --template-file .\001\001_stg.bicep --what-if
+
 az deployment group create --resource-group rgAppNameDev --template-file .\001\001_stg.bicep
 
 # if have multiple subscription 

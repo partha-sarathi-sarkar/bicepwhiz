@@ -75,8 +75,27 @@ az bicep build --file .\001\001_stg.bicep
 Screenshot:
 The screenshot shows the JSON output generated from the Bicep file, confirming that the conversion process has executed successfully.
 
-
 ![Alt Text](./img/001_Stg_json_ss.png)
 
+### Preview Before Deployment
+The bicep what-if command is used to preview the changes that will be made to an Azure resource group before deploying a Bicep file. It provides a detailed summary of which resources will be created, modified, or deleted without actually making any changes.
 
+```sh
+az deployment group create --resource-group rgAppNameDev --template-file .\001\001_stg.bicep --what-if
+```
+Screensort:
+![Alt Text](./img/001_Stg_deploy_what-if.png)
+
+
+### Deploy First Bicep Templaye 
+
+#### Using Az Cli
+
+```sh
+az deployment group create --resource-group rgAppNameDev --template-file .\001\001_stg.bicep
+```
+
+Post Deployment:
+![Alt Text](./img/001_Stg_cli_deploy_ss.png)
+![Alt Text](./img/001_Stg_)
 
