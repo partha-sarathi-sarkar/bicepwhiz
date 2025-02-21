@@ -429,6 +429,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#preview-before-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preview Before Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-first-bicep-templaye" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy First Bicep Templaye
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploy First Bicep Templaye">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-az-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Az Cli
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -552,6 +585,19 @@
 Screenshot:
 The screenshot shows the JSON output generated from the Bicep file, confirming that the conversion process has executed successfully.</p>
 <p><img alt="Alt Text" src="img/001_Stg_json_ss.png" /></p>
+<h3 id="preview-before-deployment">Preview Before Deployment<a class="headerlink" href="#preview-before-deployment" title="Permanent link">#</a></h3>
+<p>The bicep what-if command is used to preview the changes that will be made to an Azure resource group before deploying a Bicep file. It provides a detailed summary of which resources will be created, modified, or deleted without actually making any changes.</p>
+<p><div class="highlight"><pre><span></span><code>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span>rgAppNameDev<span class="w"> </span>--template-file<span class="w"> </span>.<span class="se">\0</span><span class="m">01</span><span class="se">\0</span>01_stg.bicep<span class="w"> </span>--what-if
+</code></pre></div>
+Screensort:
+<img alt="Alt Text" src="img/001_Stg_deploy_what-if.png" /></p>
+<h3 id="deploy-first-bicep-templaye">Deploy First Bicep Templaye<a class="headerlink" href="#deploy-first-bicep-templaye" title="Permanent link">#</a></h3>
+<h4 id="using-az-cli">Using Az Cli<a class="headerlink" href="#using-az-cli" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span>rgAppNameDev<span class="w"> </span>--template-file<span class="w"> </span>.<span class="se">\0</span><span class="m">01</span><span class="se">\0</span>01_stg.bicep
+</code></pre></div>
+<p>Post Deployment:
+<img alt="Alt Text" src="img/001_Stg_cli_deploy_ss.png" />
+<img alt="Alt Text" src="./img/001_Stg_" /></p>
 
 
 
