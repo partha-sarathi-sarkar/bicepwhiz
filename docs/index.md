@@ -74,6 +74,8 @@ az bicep build --file .\001\001_stg.bicep
 ```
 Screenshot:
 The screenshot shows the JSON output generated from the Bicep file, confirming that the conversion process has executed successfully.
+
+
 ![Alt Text](./img/001_Stg_json_ss.png)
 
 
