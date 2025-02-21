@@ -1,5 +1,3 @@
-                <!-- #Bicep Tutorial
-
 ## Table of Contents
 
 | Section | Description |
@@ -96,4 +94,4 @@ The screenshot shows the JSON output generated from the Bicep file, confirming t
 ![image](/attachments/001_Stg_json_ss.png)
 
 
- -->
+

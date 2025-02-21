@@ -1,13 +1,53 @@
-site_name: My Docs
+site_name: BicepWhiz
+site_url: https://partha-sarathi-sarkar.github.io/bicepwhiz/
+repo_url: https://github.com/partha-sarathi-sarkar/bicepwhiz
+repo_name: partha-sarathi-sarkar/bicepwhiz
+# edit_uri: edit/main/docs/
+
 theme:
   name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - toc.integrate
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: blue
+
 nav:
   - Home: index.md
-markdown_extensions:
-  - admonition
-  - codehilite
-  - toc:
-      permalink: true
+  # - Getting Started:
+  #     - Introduction: getting-started/introduction.md
+  #     - Installation: getting-started/installation.md
+  # - Bicep Modules:
+  #     - Basics: bicep-modules/basics.md
+  #     - Advanced: bicep-modules/advanced.md
+  # - Deployment:
+  #     - Azure DevOps: deployment/azure-devops.md
+  #     - GitHub Actions: deployment/github-actions.md
+  # - Best Practices: best-practices.md
+  # - FAQ: faq.md
+  # - About: about.md
 
 plugins:
-  - include-markdown
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import os
+            - os.environ["PYTHONPATH"] = "."
+
+markdown_extensions:
+  - toc:
+      permalink: "#"
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.emoji
