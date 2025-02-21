@@ -34,12 +34,7 @@ nav:
 
 plugins:
   - search
-  - mkdocstrings:
-      handlers:
-        python:
-          setup_commands:
-            - import os
-            - os.environ["PYTHONPATH"] = "."
+  - mkdocstrings
 
 markdown_extensions:
   - toc:

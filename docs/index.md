@@ -1,6 +1,3 @@
-{% include-markdown "toc.md" %}
-
-
 # Introduction to Infrastructure as Code (IaC)
 
 **Infrastructure as Code (IaC)** is the practice of managing and provisioning infrastructure through machine-readable configuration files, rather than through manual processes. It enables automation, consistency, and scalability in infrastructure management.
@@ -42,8 +39,6 @@ Traditional infrastructure provisioning involves manually configuring servers, n
 - **Native Azure Integration** – Works seamlessly with Azure Resource Manager (ARM) and Azure DevOps.
 - **Simplified Parameterization** – Enables flexible and reusable configurations.
 
-
-## Azure Bicep vs. ARM Templates
 
 ### Azure Bicep vs. ARM Templates  
 
