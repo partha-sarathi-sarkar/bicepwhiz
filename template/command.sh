@@ -33,3 +33,7 @@ az deployment group create --resource-group rgAppNameDev --template-file .\001\0
 # if have multiple subscription 
 
 az deployment group create --subcriptionname <name of the sub> --resource-group rgAppNameDev --template-file .\001\001_stg.bicep
+
+# deploy with parameter file
+
+az deployment group create --resource-group rgAppNameDev --template-file 001/001_stg_param.bicep --parameters "001/001_stg_param.parameters.json"
