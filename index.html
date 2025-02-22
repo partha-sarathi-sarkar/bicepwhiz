@@ -462,6 +462,168 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#bicep-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bicep Parameter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bicep Parameter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-bicep-parameter-with-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Bicep Parameter with Annotations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bicep-parameter-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bicep Parameter Decorators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-infra-with-parameter-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Infra with Parameter file
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-in-bicep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output in Bicep
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output in Bicep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkout-the-code-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checkout the code for
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bicep-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bicep modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bicep modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-bicep-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Bicep Modules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-bicep-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use Bicep Modules?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-using-bicep-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Using Bicep Modules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-define-a-bicep-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Define a Bicep Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-use-the-module-in-a-main-bicep-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Use the Module in a Main Bicep File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-deploy-using-azure-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Deploy Using Azure CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-using-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of Using Modules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -597,7 +759,132 @@ Screensort:
 </code></pre></div>
 <p>Post Deployment:
 <img alt="Alt Text" src="img/001_Stg_cli_deploy_ss.png" />
-<img alt="Alt Text" src="./img/001_Stg_" /></p>
+<img alt="Alt Text" src="img/001_Stg_deploy_ss.png" /></p>
+<h3 id="bicep-parameter">Bicep Parameter<a class="headerlink" href="#bicep-parameter" title="Permanent link">#</a></h3>
+<p>Bicep parameters (param) allow you to pass values into a Bicep template, making it more reusable and configurable. Parameters help define inputs such as resource names, locations, or sizes, which can be provided at deployment time.</p>
+<h4 id="defining-bicep-parameter-with-annotations">Defining Bicep Parameter with Annotations<a class="headerlink" href="#defining-bicep-parameter-with-annotations" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>@description<span class="o">(</span><span class="s1">&#39;The unique name for the storage account.&#39;</span><span class="o">)</span>
+@minLength<span class="o">(</span><span class="m">3</span><span class="o">)</span>
+@maxLength<span class="o">(</span><span class="m">24</span><span class="o">)</span>
+param<span class="w"> </span>storageAccountName<span class="w"> </span>string
+
+@description<span class="o">(</span><span class="s1">&#39;The Azure region where the storage account will be deployed.&#39;</span><span class="o">)</span>
+@allowed<span class="o">([</span><span class="s1">&#39;eastus&#39;</span>,<span class="w"> </span><span class="s1">&#39;westus&#39;</span>,<span class="w"> </span><span class="s1">&#39;centralindia&#39;</span><span class="o">])</span>
+param<span class="w"> </span>location<span class="w"> </span>string
+
+@description<span class="o">(</span><span class="s1">&#39;The SKU of the storage account.&#39;</span><span class="o">)</span>
+@allowed<span class="o">([</span><span class="s1">&#39;Standard_LRS&#39;</span>,<span class="w"> </span><span class="s1">&#39;Standard_GRS&#39;</span>,<span class="w"> </span><span class="s1">&#39;Premium_LRS&#39;</span><span class="o">])</span>
+param<span class="w"> </span>sku<span class="w"> </span>string
+
+@description<span class="o">(</span><span class="s1">&#39;The kind of storage account.&#39;</span><span class="o">)</span>
+@allowed<span class="o">([</span><span class="s1">&#39;StorageV2&#39;</span>,<span class="w"> </span><span class="s1">&#39;BlobStorage&#39;</span>,<span class="w"> </span><span class="s1">&#39;FileStorage&#39;</span><span class="o">])</span>
+param<span class="w"> </span>kind<span class="w"> </span>string
+</code></pre></div>
+<h4 id="bicep-parameter-decorators">Bicep Parameter Decorators<a class="headerlink" href="#bicep-parameter-decorators" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Decorator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@description('...')</code></td>
+<td>Adds a description for documentation purposes.</td>
+</tr>
+<tr>
+<td><code>@allowed([...])</code></td>
+<td>Restricts the parameter to specific values.</td>
+</tr>
+<tr>
+<td><code>@minLength(n)</code></td>
+<td>Ensures a minimum length for a string or array parameter.</td>
+</tr>
+<tr>
+<td><code>@maxLength(n)</code></td>
+<td>Ensures a maximum length for a string or array parameter.</td>
+</tr>
+<tr>
+<td><code>@minValue(n)</code></td>
+<td>Sets a minimum value for an integer parameter.</td>
+</tr>
+<tr>
+<td><code>@maxValue(n)</code></td>
+<td>Sets a maximum value for an integer parameter.</td>
+</tr>
+<tr>
+<td><code>@secure()</code></td>
+<td>Marks a parameter as sensitive, ensuring its value isn't logged or stored in deployment history.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="parameters-files">Parameters Files<a class="headerlink" href="#parameters-files" title="Permanent link">#</a></h4>
+<p>Here’s a generated parameter file (parameters.json) for your Bicep deployment</p>
+<p><img alt="Alt Text" src="img/001_Stg_paramsjson.png" /></p>
+<h4 id="deploy-infra-with-parameter-file">Deploy Infra with Parameter file<a class="headerlink" href="#deploy-infra-with-parameter-file" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span>rgAppNameDev<span class="w"> </span>--template-file<span class="w"> </span><span class="m">001</span>/001_stg_param.bicep<span class="w"> </span>--parameters<span class="w"> </span><span class="s2">&quot;001/001_stg_param.parameters.json&quot;</span>
+</code></pre></div>
+<h3 id="output-in-bicep">Output in Bicep<a class="headerlink" href="#output-in-bicep" title="Permanent link">#</a></h3>
+<p>In Bicep, the output keyword is used to return values from a deployment. These values can be used by other scripts, referenced in deployment pipelines, or checked after deployment.</p>
+<h4 id="basic-syntax">Basic Syntax<a class="headerlink" href="#basic-syntax" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>output<span class="w"> </span>&lt;outputName&gt;<span class="w"> </span>&lt;dataType&gt;<span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;value&gt;
+</code></pre></div>
+<h4 id="checkout-the-code-for">Checkout the code for<a class="headerlink" href="#checkout-the-code-for" title="Permanent link">#</a></h4>
+<p>see bicepfile <a href="../template/001/001_stg_param.bicep">here</a></p>
+<h3 id="bicep-modules">Bicep modules<a class="headerlink" href="#bicep-modules" title="Permanent link">#</a></h3>
+<p>Bicep modules are reusable Bicep files that help organize, reuse, and simplify infrastructure-as-code (IaC) deployments. They allow you to break down complex deployments into smaller, manageable components.</p>
+<h4 id="using-bicep-modules">Using Bicep Modules<a class="headerlink" href="#using-bicep-modules" title="Permanent link">#</a></h4>
+<h4 id="why-use-bicep-modules">Why Use Bicep Modules?<a class="headerlink" href="#why-use-bicep-modules" title="Permanent link">#</a></h4>
+<p>✅ <strong>Code Reusability</strong> – Define once, use multiple times.<br />
+✅ <strong>Better Organization</strong> – Break large templates into smaller files.<br />
+✅ <strong>Improved Maintainability</strong> – Modify modules independently.<br />
+✅ <strong>Encapsulation</strong> – Hide implementation details while exposing required parameters.  </p>
+<hr />
+<h4 id="example-using-bicep-modules">Example: Using Bicep Modules<a class="headerlink" href="#example-using-bicep-modules" title="Permanent link">#</a></h4>
+<h4 id="1-define-a-bicep-module">1. Define a Bicep Module<a class="headerlink" href="#1-define-a-bicep-module" title="Permanent link">#</a></h4>
+<p>Create a Bicep module file (<code>storage.bicep</code>) that defines a storage account:</p>
+<div class="highlight"><pre><span></span><code>param storageAccountName string
+param location string = resourceGroup().location
+param sku string = &#39;Standard_LRS&#39;
+
+resource storage &#39;Microsoft.Storage/storageAccounts@2023-01-01&#39; = {
+  name: storageAccountName
+  location: location
+  kind: &#39;StorageV2&#39;
+  sku: {
+    name: sku
+  }
+}
+
+output storageId string = storage.id
+</code></pre></div>
+<h4 id="2-use-the-module-in-a-main-bicep-file">2. Use the Module in a Main Bicep File<a class="headerlink" href="#2-use-the-module-in-a-main-bicep-file" title="Permanent link">#</a></h4>
+<p>Reference the module in your main Bicep file (<code>main.bicep</code>):</p>
+<div class="highlight"><pre><span></span><code>param storageAccountName string
+param location string = resourceGroup().location
+
+module storageModule &#39;./storage.bicep&#39; = {
+  name: &#39;storageDeployment&#39;
+  params: {
+    storageAccountName: storageAccountName
+    location: location
+  }
+}
+</code></pre></div>
+<h4 id="3-deploy-using-azure-cli">3. Deploy Using Azure CLI<a class="headerlink" href="#3-deploy-using-azure-cli" title="Permanent link">#</a></h4>
+<p>Run the following command to deploy the Bicep template:</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>deployment<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span>&lt;ResourceGroupName&gt;<span class="w"> </span>--template-file<span class="w"> </span>main.bicep<span class="w"> </span>--parameters<span class="w"> </span><span class="nv">storageAccountName</span><span class="o">=</span>&lt;YourStorageAccount&gt;
+</code></pre></div>
+<hr />
+<h4 id="benefits-of-using-modules">Benefits of Using Modules<a class="headerlink" href="#benefits-of-using-modules" title="Permanent link">#</a></h4>
+<ul>
+<li><strong>Simplifies complex deployments</strong> by breaking them into smaller, manageable components.</li>
+<li><strong>Enhances collaboration</strong> by allowing teams to work on separate modules.</li>
+<li><strong>Easier troubleshooting</strong> since each module can be tested independently.</li>
+<li><strong>Improves security</strong> by exposing only necessary parameters while keeping implementation details hidden.</li>
+</ul>
+<p>By structuring your Bicep templates into reusable modules, you enhance scalability, maintainability, and clarity in your infrastructure as code (IaC) deployments. 🚀</p>
 
 
 
