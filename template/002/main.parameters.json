@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "value": "vnetdemodev"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "subnetArray": {
+      "value": [
+        {
+          "name": "stgSubnet",
+          "addressPrefix": "10.0.1.0/24"
+        },
+        {
+          "name": "vmSubnet",
+          "addressPrefix": "10.0.2.0/24"
+        },
+        {
+          "name": "appSubnet",
+          "addressPrefix": "10.0.3.0/24"
+        }
+      ]
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "createdby": "bicep"
+      }
+    },
+    "storageaccount_name": {
+      "value": "stgmoduledev"
+    },
+    "storage_sku": {
+      "value": "Standard_LRS"
+    },
+    "storage_kind": {
+      "value": "StorageV2"
+    },
+    "container_names": {
+      "value": [
+        "container1",
+        "container2",
+        "container3"
+      ]
+    }
+  }
+}

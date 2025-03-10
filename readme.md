@@ -1,18 +1,3 @@
-## Table of Contents
-
-| Section | Description |
-|---------|-------------|
-| [Introduction to IaC](#introduction-to-infrastructure-as-code-iac) | Overview of Infrastructure as Code (IaC) |
-| [Why IaC?](#why-iac) | Reasons to use IaC for infrastructure management |
-| [Key Benefits of IaC](#key-benefits-of-iac) | Advantages like automation, consistency, and scalability |
-| [Types of IaC Approaches](#types-of-iac-approaches) | Differences between Declarative and Imperative IaC |
-| [Popular IaC Tools](#popular-iac-tools) | Overview of Terraform, Azure Bicep, and AWS CloudFormation |
-| [Introduction to Azure Bicep](#introduction-to-azure-bicep) | Basics of Azure Bicep and its advantages |
-| [Azure Bicep vs. ARM Templates](#azure-bicep-vs-arm-templates) | Comparison of Bicep and ARM templates |
-| [Installing Azure CLI](#installing-azure-cli) | Steps to install Azure CLI for Bicep deployment |
-| [Common Structure of an Azure Bicep File](#common-structure-of-an-azure-bicep-file) | Example of an Azure Storage Account deployment |
-| [Bicep Deployment](#bicep-deployment) | Converting Bicep to JSON using Azure CLI |
-
 # Introduction to Infrastructure as Code (IaC)
 
 **Infrastructure as Code (IaC)** is the practice of managing and provisioning infrastructure through machine-readable configuration files, rather than through manual processes. It enables automation, consistency, and scalability in infrastructure management.
@@ -55,8 +40,6 @@ Traditional infrastructure provisioning involves manually configuring servers, n
 - **Simplified Parameterization** – Enables flexible and reusable configurations.
 
 
-## Azure Bicep vs. ARM Templates
-
 ### Azure Bicep vs. ARM Templates  
 
 | Feature        | Azure Bicep | ARM Templates |
@@ -91,7 +74,161 @@ az bicep build --file .\001\001_stg.bicep
 ```
 Screenshot:
 The screenshot shows the JSON output generated from the Bicep file, confirming that the conversion process has executed successfully.
-![image](/attachments/001_Stg_json_ss.png)
+
+![Alt Text](./img/001_Stg_json_ss.png)
+
+### Preview Before Deployment
+The bicep what-if command is used to preview the changes that will be made to an Azure resource group before deploying a Bicep file. It provides a detailed summary of which resources will be created, modified, or deleted without actually making any changes.
+
+```sh
+az deployment group create --resource-group rgAppNameDev --template-file .\001\001_stg.bicep --what-if
+```
+Screensort:
+![Alt Text](./img/001_Stg_deploy_what-if.png)
+
+
+### Deploy First Bicep Templaye 
+
+#### Using Az Cli
+
+```sh
+az deployment group create --resource-group rgAppNameDev --template-file .\001\001_stg.bicep
+```
+
+Post Deployment:
+![Alt Text](./img/001_Stg_cli_deploy_ss.png)
+![Alt Text](./img/001_Stg_deploy_ss.png)
+
+
+### Bicep Parameter
+Bicep parameters (param) allow you to pass values into a Bicep template, making it more reusable and configurable. Parameters help define inputs such as resource names, locations, or sizes, which can be provided at deployment time.
+
+#### Defining Bicep Parameter with Annotations
+```sh
+@description('The unique name for the storage account.')
+@minLength(3)
+@maxLength(24)
+param storageAccountName string
+
+@description('The Azure region where the storage account will be deployed.')
+@allowed(['eastus', 'westus', 'centralindia'])
+param location string
+
+@description('The SKU of the storage account.')
+@allowed(['Standard_LRS', 'Standard_GRS', 'Premium_LRS'])
+param sku string
+
+@description('The kind of storage account.')
+@allowed(['StorageV2', 'BlobStorage', 'FileStorage'])
+param kind string
+```
+
+#### Bicep Parameter Decorators
+
+| Decorator       | Description |
+|----------------|-------------|
+| `@description('...')` | Adds a description for documentation purposes. |
+| `@allowed([...])` | Restricts the parameter to specific values. |
+| `@minLength(n)` | Ensures a minimum length for a string or array parameter. |
+| `@maxLength(n)` | Ensures a maximum length for a string or array parameter. |
+| `@minValue(n)` | Sets a minimum value for an integer parameter. |
+| `@maxValue(n)` | Sets a maximum value for an integer parameter. |
+| `@secure()` | Marks a parameter as sensitive, ensuring its value isn't logged or stored in deployment history. |
+
+
+#### Parameters Files
+Here’s a generated parameter file (parameters.json) for your Bicep deployment
+
+![Alt Text](./img/001_Stg_paramsjson.png)
+
+#### Deploy Infra with Parameter file
+```sh
+az deployment group create --resource-group rgAppNameDev --template-file 001/001_stg_param.bicep --parameters "001/001_stg_param.parameters.json"
+```
+
+### Output in Bicep
+In Bicep, the output keyword is used to return values from a deployment. These values can be used by other scripts, referenced in deployment pipelines, or checked after deployment.
+
+#### Basic Syntax 
+```sh
+output <outputName> <dataType> = <value>
+```
+
+
+
+
+#### Checkout the code for 
+see bicepfile [here](../template/001/001_stg_param.bicep)
+
+### Bicep modules
+Bicep modules are reusable Bicep files that help organize, reuse, and simplify infrastructure-as-code (IaC) deployments. They allow you to break down complex deployments into smaller, manageable components.
+
+#### Using Bicep Modules
+
+#### Why Use Bicep Modules?
+
+✅ **Code Reusability** – Define once, use multiple times.  
+✅ **Better Organization** – Break large templates into smaller files.  
+✅ **Improved Maintainability** – Modify modules independently.  
+✅ **Encapsulation** – Hide implementation details while exposing required parameters.  
+
+---
+
+#### Example: Using Bicep Modules
+
+#### 1. Define a Bicep Module
+Create a Bicep module file (`storage.bicep`) that defines a storage account:
+
+```bicep
+param storageAccountName string
+param location string = resourceGroup().location
+param sku string = 'Standard_LRS'
+
+resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: storageAccountName
+  location: location
+  kind: 'StorageV2'
+  sku: {
+    name: sku
+  }
+}
+
+output storageId string = storage.id
+```
+
+#### 2. Use the Module in a Main Bicep File
+Reference the module in your main Bicep file (`main.bicep`):
+
+```bicep
+param storageAccountName string
+param location string = resourceGroup().location
+
+module storageModule './storage.bicep' = {
+  name: 'storageDeployment'
+  params: {
+    storageAccountName: storageAccountName
+    location: location
+  }
+}
+```
+
+#### 3. Deploy Using Azure CLI
+Run the following command to deploy the Bicep template:
+
+```sh
+az deployment group create --resource-group <ResourceGroupName> --template-file main.bicep --parameters storageAccountName=<YourStorageAccount>
+```
+
+---
+
+#### Benefits of Using Modules
+- **Simplifies complex deployments** by breaking them into smaller, manageable components.
+- **Enhances collaboration** by allowing teams to work on separate modules.
+- **Easier troubleshooting** since each module can be tested independently.
+- **Improves security** by exposing only necessary parameters while keeping implementation details hidden.
+
+By structuring your Bicep templates into reusable modules, you enhance scalability, maintainability, and clarity in your infrastructure as code (IaC) deployments. 🚀
+
 
 
 
